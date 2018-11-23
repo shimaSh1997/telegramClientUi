@@ -1,62 +1,43 @@
-import React, { Component } from 'react';
-import { Text, View,ScrollView } from 'react-native';
-import message from '../../../recourse/message.json';
-import Rectangle from '../BasicShapes/Rectangle';
-import Circle from '../BasicShapes/Circle';
+import React, { Component } from "react";
+import { Text, View, StyleSheet } from "react-native";
+import Rectangle from "../BasicShapes/Rectangle";
+import Circle from "../BasicShapes/Circle";
+
+const SELF_ID = "shima";
 
 class Message extends Component {
-	state = { chat_list: [] };
+    test_components = {
+        rect: <Rectangle />,
+        circle: <Circle />
+    };
 
-	generate_chat_list() {
-		const chats = message.map((item) => {
-			if (item.message.sender_id == 'shima') {
-				
-				if (item.message.type == 'rect') {
-					return (
-						<View style={{ flex:1,flexDirection:'row', justifyContent: 'flex-end' }}>
-							<Rectangle />
-						</View>
-					);
-				} else {
-					return (
-						<View style={{ flex:1,flexDirection:'row',justifyContent: 'flex-end' }}>
-							<Circle />
-						</View>
-					);
-				}
-			} else {
-				if (item.message.type == 'rect') {
-					return (
-						<View style={{ flex:1,flexDirection:'row',justifyContent: 'flex-start' }}>
-							<Rectangle />
-						</View>
-					);
-				} else {
-					return (
-						<View style={{ flex:1,flexDirection:'row',justifyContent: 'flex-start' }}>
-							<Circle />
-						</View>
-					);
-				}
-			}
-		});
-		this.setState({
-			chat_list:chats
-		})
-	}
-
-	componentDidMount(){
-		this.generate_chat_list()
-	}
-	
-
-	render() {
-		return (
-			<ScrollView style={{flexDirection:'column',flex:1,backgroundColor:'#000'}}>
-				{this.state.chat_list}
-			</ScrollView>
-		);
-	}
+    render() {
+        const { data } = this.props;
+        return (
+            <View
+                style={
+                    data.message.sender_id == SELF_ID
+                        ? styles.self_message
+                        : styles.other_user_message
+                }
+            >
+                {this.test_components[data.message.type]}
+            </View>
+        );
+    }
 }
+
+const styles = StyleSheet.create({
+    self_message: {
+        flexDirection: "row",
+        flex: 1,
+		justifyContent: "flex-end",
+    },
+    other_user_message: {
+        flexDirection: "row",
+        flex: 1,
+        justifyContent: "flex-start"
+    }
+});
 
 export default Message;
