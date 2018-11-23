@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import Rectangle from '../src/components/BasicShapes/Rectangle';
-import Circle from '../src/components/BasicShapes/Circle';
-import MessageList from '../src/components/Message/MessageList';
+import React, { Component } from "react";
+import ChatListView from "../src/components/Message/ChatListView";
+import fake_message_data from "../res/message.json";
 
 export class PlayGround extends Component {
-	render() {
-		return <MessageList />;
-	}
+    render() {
+        return (
+            <ChatListView
+                data={fake_message_data}
+                threshold={1000}
+                scrollToBottom={true}
+            />
+        );
+    }
 }
 
 export default PlayGround;
