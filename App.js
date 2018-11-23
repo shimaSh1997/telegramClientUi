@@ -14,7 +14,6 @@ class App extends Component {
 
 styles = StyleSheet.create({
   container : {
-    backgroundColor:'yellow',
     flex:1,
     flexDirection:'column'
   }
